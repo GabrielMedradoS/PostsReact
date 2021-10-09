@@ -1,0 +1,8 @@
+    .posts {
+    display: grid;
+  
+    /* vai repetir para cada um dos elementos, tera um tamanho min de 280px mas se n der use 1fr */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 30px;
+  }
+  
