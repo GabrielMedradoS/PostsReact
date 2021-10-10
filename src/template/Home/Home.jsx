@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 
 import { loadPosts } from '../../components/LoadPosts/loadPosts';
 import { Posts } from '../../components/Posts';
@@ -13,7 +13,7 @@ class Home extends Component {
     postsPerPage: 3,
     searchValue: '',
   };
-  
+
   async componentDidMount() {
     await this.loadPosts();
   }
@@ -26,7 +26,7 @@ class Home extends Component {
       posts: postsAndPhotos.slice(page, postsPerPage),
       allPosts: postsAndPhotos,
     });
-  } 
+  }
 
   loadMorePosts = () => {
     const {
@@ -45,17 +45,18 @@ class Home extends Component {
 
   handleChange = (e) => {
     const { value } = e.target
-    this.setState({searchValue: value}) 
+    this.setState({searchValue: value})
   }
 
   render() {
     const { posts, page, postsPerPage, allPosts, searchValue } = this.state;
     const noMorePosts = page + postsPerPage >= allPosts.length;
 
-    const filteredPosts = !!searchValue ? allPosts.filter(post => {
+    const filteredPosts = !searchValue ? posts :
+    allPosts.filter(post => {
       return post.title.toLowerCase().includes(searchValue.toLowerCase());
-    }) : 
-    posts;
+    })
+
 
     return (
       <div className="container">
@@ -79,7 +80,7 @@ class Home extends Component {
           <Button text="Load More Posts"
           onClick={this.loadMorePosts} /* isso é um atributo e nao um evento */
           disabled={noMorePosts}
-          /> 
+          />
           )}
       </div>
     )
